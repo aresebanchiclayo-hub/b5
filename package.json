@@ -1,0 +1,14 @@
+{
+  "name": "aguilas-negras-paso239-auditoria-laboratorio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "npm run audit && firebase emulators:exec --project aguilas-paso238-lab --only auth,firestore \"node --test --test-concurrency=1 pruebas-integradas.test.cjs servicio.test.cjs\"",
+    "audit": "node --test auditoria.test.cjs"
+  },
+  "devDependencies": {
+    "firebase": "^11.10.0",
+    "firebase-admin": "^13.0.0",
+    "firebase-tools": "^14.0.0"
+  }
+}

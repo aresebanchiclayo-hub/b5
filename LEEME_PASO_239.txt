@@ -1,0 +1,28 @@
+ÁGUILAS NEGRAS — PASO 239 — AUDITORÍA DE SEGURIDAD (SOLO LABORATORIO)
+
+PROPÓSITO: detectar riesgos pendientes, NO desplegar cambios.
+
+1. Crear repositorio privado nuevo y subir los archivos de esta carpeta (no el ZIP).
+2. En GitHub Codespaces: npm install
+3. Ejecutar: npm test
+4. Capturar la terminal. Resultado esperado: 8 verificaciones de auditoría y 26 pruebas anteriores aprobadas (34 en total), si el entorno mantiene compatibilidad.
+
+IMPORTANTE: las verificaciones de auditoría que pasan CONFIRMAN HALLAZGOS, NO que estén corregidos. Las pruebas de concurrencia real y recuperación administrativa siguen pendientes.
+
+RIESGOS DETECTADOS:
+- Aprobación no atómica: dos solicitudes concurrentes pueden pasar la lectura de pendiente; es necesario usar transacciones y diseño idempotente.
+- Claim de Authentication y documentos Firestore no son una sola transacción; hace falta compensación y reconciliación.
+- La API de laboratorio acepta actorUid sin verificar un token de llamada; NO exponer como endpoint.
+- Falta registro de auditoría append-only con actor, acción, objeto, resultado y timestamp de servidor, sin datos personales innecesarios.
+- Falta recuperación administrativa fuera de banda, con aprobación dual, verificación fuerte y trazabilidad.
+- El ID de navegador no acredita identidad física; se necesita prueba criptográfica vinculada a credencial y desafío.
+
+PLAN DE RECUPERACIÓN (DISEÑO, NO IMPLEMENTADO):
+- Mantener dos administradores de emergencia previamente verificados, con MFA resistente al phishing.
+- Custodiar credenciales por separado, con doble control y procedimiento documentado.
+- Probar la recuperación en un proyecto de ensayo independiente antes de producción.
+- Registrar cada uso del procedimiento de emergencia y notificar a los responsables.
+- Revalidar permisos y revocar sesiones antiguas después de la recuperación.
+- Mantener copia de reglas y plan de reversión; nunca usar RESTAURAR datos reales para recuperar acceso.
+
+NO CONECTAR A FIREBASE DE PRODUCCIÓN. NO PUBLICAR LAS REGLAS. NO USAR DATOS REALES.

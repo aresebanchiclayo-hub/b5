@@ -1,0 +1,19 @@
+AGUILAS NEGRAS - PASO 238 - LABORATORIO, NO PRODUCCION
+
+Solo cuentas ficticias y emuladores locales. No utilizar credenciales, datos ni proyecto Firebase reales.
+
+En un Codespace NUEVO con estos seis archivos en la raiz:
+  npm install
+  npm test
+
+Se esperan 25 subpruebas: 13 del Paso 237 + 12 nuevas del servicio.
+No se garantiza el resultado hasta ejecutarlas. Enviar captura de terminal.
+
+LIMITACIONES DE SEGURIDAD CRITICAS:
+- Servicio-autorizacion.cjs es una LIBRERIA DE LABORATORIO, NO un servidor HTTP desplegable.
+- El actorUid se pasa como argumento: no es autenticacion del solicitante. Un cliente publico podria falsificarlo. Nunca exponer funciones como endpoint sin verificar token ID, autorizacion y reautenticacion del administrador.
+- El claim sessionId se asigna a nivel de usuario, no queda vinculado criptograficamente a un navegador o equipo. No equivale a WebAuthn ni a identidad fisica.
+- No hay atomicidad entre crear sesion, asignar claim y actualizar solicitud; tampoco bloqueo de carreras de aprobacion. Requiere transacciones/idempotencia y manejo de fallos antes de produccion.
+- La revocacion se comprueba en Firestore en operaciones posteriores, no borra datos ya descargados.
+- La aprobacion de administradores nuevos requiere un procedimiento seguro de dos personas/recuperacion; el laboratorio bloquea autoaprobacion.
+- No desplegar reglas de este laboratorio, ni modificar Firebase de produccion, ni migrar expedientes.
